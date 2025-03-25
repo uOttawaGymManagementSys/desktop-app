@@ -1,6 +1,8 @@
 import React from "react";
+import { Link, Links, NavLink } from "react-router-dom";
 
 //icons
+import { MdOutlineCancel } from 'react-icons/md';
 import {FaBusinessTime} from "react-icons/fa";
 import {TbDeviceAnalytics} from "react-icons/tb";
 import { CiDumbbell } from "react-icons/ci";
@@ -8,8 +10,6 @@ import { GiFirstAidKit, GiVacuumCleaner } from "react-icons/gi";
 import { FaArrowsDownToPeople } from "react-icons/fa6";
 import logo from "../assets/logo.svg";
 import logomini from "../assets/logomini.svg";
-import { Link } from "react-router-dom";
-
 
 type SidebarLink = {
     id: number;
@@ -23,6 +23,12 @@ type SidebarLink = {
   
 const Sidebar: React.FC = () => {
 
+    const activeMenu: boolean = true;
+
+    const activeLink: string = "flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-[#5C1419] transition-all whitespace-nowrap hover:bg-gray-200 m-2";
+    const normalLink: string = "flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg hover:text-[#5C1419] transition-all hover:bg-gray-200 whitespace-nowrap m-2";
+
+
     const SIDEBAR_LINKS: SidebarLink[] = [
         { id: 1, path: "/", name: "Dashboard", icon: TbDeviceAnalytics },
         { id: 2, path: "/punchInOut", name: "Punch In-Out", icon: FaBusinessTime },
@@ -33,28 +39,37 @@ const Sidebar: React.FC = () => {
       ];
       
     return (
-        <div className="w-20 md:w-62 fixed left-0 top-0 z-10 h-screen pt-4 px-4 bg-white shadow-lg">
-            {/* logo */}
-            <div className="flex flex-col items-center mb-8">
-                <img src={logo} alt="REC Full Logo" className="w-26 hidden md:flex"/>
-                <img src={logomini} alt="REC Mini Logo" className="w-18 flex md:hidden"/>
-            </div>
-            {/* logo */}
-
-            {/* Navigation Links */}
-            <ul className="space-y-0.5">
-                {SIDEBAR_LINKS.map((link) => (
-                    <li key={link.id} className="font-medium px-2 py-2 rounded-md hover:bg-gray-100 hover:text-[#5C1419] transition-all whitespace-nowrap">
-                        <Link to={link.path} className="flex items-center md:space-x-4">
-                        <link.icon className="text-xl" /> 
-                        <span className="hidden md:inline-block">{link.name}</span>
+        <div className="ml-3 h-screen md:overflow-hidden overflow-auto md:hover:overflow-auto pb-10 shadow-2xl">
+            {activeMenu && (
+                <>
+                    <div className="flex justify-between items-center mt-4 px-2">
+                        {/* Logo */}
+                        <Link to="/" onClick={() => {}} className="items-center mx-auto ml-20">
+                            <span><img src={logo} alt="REC Full Logo" width="100" height="100" /></span>
                         </Link>
-                    </li>
-                ))}
-            </ul>
-            {/* Navigation Links */}
+
+                        {/* Minimise Sidebar Button */}
+                        <button type="button"
+                                onClick={() => {}}
+                                className="text-xl rounded-full hover:bg-gray-200 cursor-pointer" >
+                            <MdOutlineCancel />
+                        </button>
+                    </div>
+                    <div className="mt-10">
+                        {SIDEBAR_LINKS.map((link) => (
+                            <NavLink to={`/${link.name}`}
+                                     key={link.id}
+                                     className={({isActive}) => (isActive ? activeLink : normalLink)}>
+                                <link.icon />
+                                <span>{link.name}</span>
+                                
+                            </NavLink>    
+                        ))}
+                    </div>
+                </> 
+            )}
         </div>
-    );
+    ); 
 };
 
 export default Sidebar;
