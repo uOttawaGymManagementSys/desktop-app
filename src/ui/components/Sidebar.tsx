@@ -55,6 +55,7 @@ const Sidebar: React.FC = () => {
                             <MdOutlineCancel />
                         </button>
                     </div>
+                    {/* Sidebar Links */}
                     <div className="mt-10">
                         {SIDEBAR_LINKS.map((link) => (
                             <NavLink to={`/${link.name}`}
