@@ -17,8 +17,12 @@ export default function App() {
     <HashRouter>
       <div className="flex">
         {/* Sidebar */}
-        {activeMenu && (
+        {activeMenu ? (        
           <div className="w-72 fixed">
+            <Sidebar />
+          </div>
+        ) : (
+          <div className="w-20 ">
             <Sidebar />
           </div>
         )}

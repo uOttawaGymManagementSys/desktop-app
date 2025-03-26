@@ -1,43 +1,79 @@
-import { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-interface ActiveMenuState {
-    chat: boolean;
-    userProfile: boolean;
-    notification: boolean;
+interface StateContextProps {
+  currentMode: string;
+  activeMenu: boolean;
+  screenSize: number | undefined;
+  setScreenSize: (size: number | undefined) => void;
+  handleClick: (clicked: keyof InitialStateType) => void;
+  isClicked: InitialStateType;
+  initialState: InitialStateType;
+  setIsClicked: React.Dispatch<React.SetStateAction<InitialStateType>>;
+  setActiveMenu: React.Dispatch<React.SetStateAction<boolean>>;
+  setCurrentMode: (mode: string) => void;
+  setMode: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
-interface ActiveMenuContextType {
-    activeMenu: ActiveMenuState;
-    setActiveMenu: React.Dispatch<React.SetStateAction<ActiveMenuState>>;
+interface InitialStateType {
+  chat: boolean;
+  userProfile: boolean;
+  notification: boolean;
+  activeMenu: boolean;
 }
 
-const ActiveMenuContext = createContext<ActiveMenuContextType | undefined>(undefined);
-
-const initialState: ActiveMenuState = {
-    chat: false,
-    userProfile: false,
-    notification: false,
+const initialState: InitialStateType = {
+  chat: false,
+  userProfile: false,
+  notification: false,
+  activeMenu: false,
 };
 
+const StateContext = createContext<StateContextProps | undefined>(undefined);
+
 interface ContextProviderProps {
-    children: ReactNode;
+  children: ReactNode;
 }
 
 export const ContextProvider: React.FC<ContextProviderProps> = ({ children }) => {
-    const [activeMenu, setActiveMenu] = useState<ActiveMenuState>(initialState);
+  const [screenSize, setScreenSize] = useState<number | undefined>(undefined);
+  const [currentMode, setCurrentMode] = useState<string>('Light');
+  const [activeMenu, setActiveMenu] = useState<boolean>(true);
+  const [isClicked, setIsClicked] = useState<InitialStateType>(initialState);
 
-    return (
-        <ActiveMenuContext.Provider value={{ activeMenu, setActiveMenu }}>
-            {children}
-        </ActiveMenuContext.Provider>
-    );
+  const setMode = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setCurrentMode(e.target.value);
+    localStorage.setItem('themeMode', e.target.value);
+  };
+
+  const handleClick = (clicked: keyof InitialStateType) => {
+    setIsClicked({ ...initialState, [clicked]: true });
+  };
+
+  return (
+    <StateContext.Provider
+      value={{
+        currentMode,
+        activeMenu,
+        screenSize,
+        setScreenSize,
+        handleClick,
+        isClicked,
+        initialState,
+        setIsClicked,
+        setActiveMenu,
+        setCurrentMode,
+        setMode,
+      }}
+    >
+      {children}
+    </StateContext.Provider>
+  );
 };
 
-// Custom hook for using the context
-export const useActiveMenuContext = (): ActiveMenuContextType => {
-    const context = useContext(ActiveMenuContext);
-    if (!context) {
-        throw new Error("useActiveMenuContext must be used within a ContextProvider");
-    }
-    return context;
+export const useStateContext = (): StateContextProps => {
+  const context = useContext(StateContext);
+  if (!context) {
+    throw new Error('useStateContext must be used within a ContextProvider');
+  }
+  return context;
 };

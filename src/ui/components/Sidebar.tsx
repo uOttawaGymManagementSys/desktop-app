@@ -1,5 +1,6 @@
 import React from "react";
-import { Link, Links, NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import { useStateContext } from "../contexts/ContextProvider";
 
 //icons
 import { MdOutlineCancel } from 'react-icons/md';
@@ -8,6 +9,9 @@ import {TbDeviceAnalytics} from "react-icons/tb";
 import { CiDumbbell } from "react-icons/ci";
 import { GiFirstAidKit, GiVacuumCleaner } from "react-icons/gi";
 import { FaArrowsDownToPeople } from "react-icons/fa6";
+import { IoIosArrowForward } from "react-icons/io";
+import { IoIosArrowBack } from "react-icons/io";
+
 import logo from "../assets/logo.svg";
 import logomini from "../assets/logomini.svg";
 
@@ -23,7 +27,7 @@ type SidebarLink = {
   
 const Sidebar: React.FC = () => {
 
-    const activeMenu: boolean = true;
+    const { activeMenu, setActiveMenu } = useStateContext();
 
     const activeLink: string = "flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-[#5C1419] transition-all whitespace-nowrap hover:bg-gray-200 m-2";
     const normalLink: string = "flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg hover:text-[#5C1419] transition-all hover:bg-gray-200 whitespace-nowrap m-2";
@@ -40,19 +44,19 @@ const Sidebar: React.FC = () => {
       
     return (
         <div className="ml-3 h-screen md:overflow-hidden overflow-auto md:hover:overflow-auto pb-10 shadow-2xl">
-            {activeMenu && (
+            {activeMenu ? (
                 <>
                     <div className="flex justify-between items-center mt-4 px-2">
                         {/* Logo */}
-                        <Link to="/" onClick={() => {}} className="items-center mx-auto ml-20">
+                        <Link to="/" onClick={() => setActiveMenu(false)} className="items-center mx-auto ml-20">
                             <span><img src={logo} alt="REC Full Logo" width="100" height="100" /></span>
                         </Link>
 
                         {/* Minimise Sidebar Button */}
                         <button type="button"
-                                onClick={() => {}}
-                                className="text-xl rounded-full hover:bg-gray-200 cursor-pointer" >
-                            <MdOutlineCancel />
+                                onClick={() => setActiveMenu((prevActiveMenu) => !prevActiveMenu)}
+                                className="text-xl rounded-ful cursor-pointer" >
+                            <IoIosArrowBack />
                         </button>
                     </div>
                     {/* Sidebar Links */}
@@ -68,6 +72,33 @@ const Sidebar: React.FC = () => {
                         ))}
                     </div>
                 </> 
+                ) : (
+                    <>
+                    <div className="flex flex-col items-center ">
+                        <div className="relative pl-7">
+                        {/*Mini Logo*/}
+                        <Link to="/" onClick={() => setActiveMenu(false)} className="items-center mx-auto ml-20">
+                            <span><img src={logomini} alt="REC Full Logo" width="50" height="50" /></span>
+                        </Link>
+                        {/* Minimise Sidebar Button */}
+                        <button type="button"
+                                onClick={() => setActiveMenu((prevActiveMenu) => !prevActiveMenu)}
+                                className="absolute top-8.5 pl-11 text-l rounded-full cursor-pointer" >
+                            <IoIosArrowForward />
+                        </button>
+                        </div>
+                    </div>
+                    <div className="mt-10">
+                    {SIDEBAR_LINKS.map((link) => (
+                        <NavLink to={`/${link.name}`}
+                                 key={link.id}
+                                 className={({isActive}) => (isActive ? activeLink : normalLink)}>
+                            <link.icon /> 
+                        </NavLink>    
+                    ))}
+                </div>
+                </>
+                    
             )}
         </div>
     ); 
