@@ -3,7 +3,6 @@ import { Link, NavLink } from "react-router-dom";
 import { useStateContext } from "../contexts/ContextProvider";
 
 //icons
-import { MdOutlineCancel } from 'react-icons/md';
 import {FaBusinessTime} from "react-icons/fa";
 import {TbDeviceAnalytics} from "react-icons/tb";
 import { CiDumbbell } from "react-icons/ci";
@@ -55,7 +54,8 @@ const Sidebar: React.FC = () => {
                         {/* Minimise Sidebar Button */}
                         <button type="button"
                                 onClick={() => setActiveMenu((prevActiveMenu) => !prevActiveMenu)}
-                                className="text-xl rounded-ful cursor-pointer" >
+                                className="text-xl rounded-ful cursor-pointer" 
+                                style={{color: "#5C1419"}}>
                             <IoIosArrowBack />
                         </button>
                     </div>
@@ -83,7 +83,8 @@ const Sidebar: React.FC = () => {
                         {/* Minimise Sidebar Button */}
                         <button type="button"
                                 onClick={() => setActiveMenu((prevActiveMenu) => !prevActiveMenu)}
-                                className="absolute top-8.5 pl-11 text-l rounded-full cursor-pointer" >
+                                className="absolute top-8.5 pl-11 text-l rounded-full cursor-pointer"
+                                style={{color: "#5C1419"}}>
                             <IoIosArrowForward />
                         </button>
                         </div>
