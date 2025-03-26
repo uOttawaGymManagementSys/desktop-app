@@ -1,4 +1,5 @@
 import { HashRouter, Routes, Route } from "react-router-dom";
+
 import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
 import Dashboard from "./pages/Dashboard";
@@ -8,8 +9,10 @@ import FirstAidKit from "./pages/FirstAidKit";
 import ClosingChecklist from "./pages/ClosingChecklist";
 import TrafficCount from "./pages/TrafficCount";
 
+import { useStateContext } from "./contexts/ContextProvider";
+
 export default function App() {
-  const activeMenu: boolean = true;
+  const {activeMenu} = useStateContext();
   return (
     <HashRouter>
       <div className="flex">
