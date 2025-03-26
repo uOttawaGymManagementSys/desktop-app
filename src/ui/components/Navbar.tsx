@@ -4,6 +4,7 @@ import { SiZcool } from "react-icons/si";
 import { IoIosSearch, IoIosNotifications, IoIosArrowDown } from "react-icons/io";
 import Notification from "./Notification";
 import UserProfile from "./UserProfile";
+import Search from "./Search";
 import profilephoto1 from "../data/profilephoto1.png";
 
 
@@ -65,6 +66,7 @@ const Navbar: React.FC = () => {
                 </div>
                 {isClicked && <Notification/>}
                 {isClicked && <UserProfile/>}
+                {isClicked && <Search/>}
             </div>
         </div>
     );

@@ -19,6 +19,7 @@ interface InitialStateType {
   userProfile: boolean;
   notification: boolean;
   activeMenu: boolean;
+  search: boolean;
 }
 
 const initialState: InitialStateType = {
