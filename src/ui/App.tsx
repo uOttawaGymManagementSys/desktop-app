@@ -16,7 +16,7 @@ export default function App() {
 
   return (
     <HashRouter>
-      <div className="flex">
+      <div className="flex h-screen">
         {/* Sidebar */}
         <div className={`fixed ${activeMenu ? "w-72" : "w-20"} h-screen transition-all`}>
           <Sidebar />
@@ -25,22 +25,23 @@ export default function App() {
         {/* Main Content Area */}
         <div className={`flex-1 min-h-screen transition-all ${activeMenu ? "ml-72" : "ml-20"}`}>
           {/* Navbar */}
-          <div className="fixed md:static w-full">
+          <div className="w-full">
             <Navbar />
           </div>
-        </div>
-      </div>
 
-      {/* Routing Content */}
-      <div className="p-6">
-        <Routes>
-          <Route path="/" element={<div>Dashboard Test</div>} />
-          <Route path="/punch-in-out" element={<div>Punch In-Out Test</div>} />
-          <Route path="/equipment-inspection" element={<div>Equipment Inspection Test</div>} />
-          <Route path="/first-aid-kit" element={<div>First-Aid Kit Test</div>} />
-          <Route path="/closing-checklist" element={<div>Closing Checklist Test</div>} />
-          <Route path="/traffic-count" element={<div>Traffic Count Test</div>} />
-        </Routes>
+          {/* Routing Content */}
+          <div className="p-6">
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/punch-in-out" element={<PunchInOut />} />
+              <Route path="/equipment-inspection" element={<EquipmentInspection />} />
+              <Route path="/first-aid-kit" element={<FirstAidKit />} />
+              <Route path="/closing-checklist" element={<ClosingChecklist />} />
+              <Route path="/traffic-count" element={<TrafficCount />} />
+            </Routes>
+          </div>
+        </div>
       </div>
     </HashRouter>
   );

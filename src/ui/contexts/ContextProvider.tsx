@@ -3,8 +3,6 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 interface StateContextProps {
   currentMode: string;
   activeMenu: boolean;
-  screenSize: number | undefined;
-  setScreenSize: (size: number | undefined) => void;
   handleClick: (clicked: keyof InitialStateType) => void;
   isClicked: InitialStateType;
   initialState: InitialStateType;
@@ -27,6 +25,7 @@ const initialState: InitialStateType = {
   userProfile: false,
   notification: false,
   activeMenu: false,
+  search: false,
 };
 
 const StateContext = createContext<StateContextProps | undefined>(undefined);
@@ -36,7 +35,6 @@ interface ContextProviderProps {
 }
 
 export const ContextProvider: React.FC<ContextProviderProps> = ({ children }) => {
-  const [screenSize, setScreenSize] = useState<number | undefined>(undefined);
   const [currentMode, setCurrentMode] = useState<string>('Light');
   const [activeMenu, setActiveMenu] = useState<boolean>(true);
   const [isClicked, setIsClicked] = useState<InitialStateType>(initialState);
@@ -55,8 +53,6 @@ export const ContextProvider: React.FC<ContextProviderProps> = ({ children }) =>
       value={{
         currentMode,
         activeMenu,
-        screenSize,
-        setScreenSize,
         handleClick,
         isClicked,
         initialState,

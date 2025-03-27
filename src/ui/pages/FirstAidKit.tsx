@@ -2,7 +2,7 @@ import React from "react";
 
 const FirstAidKit: React.FC = () => {
     return (
-        <div>navbar</div>
+        <div>first aid kit</div>
     );
 };
 

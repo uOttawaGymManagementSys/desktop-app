@@ -1,6 +1,5 @@
 import React from "react";
 import { useStateContext } from "../contexts/ContextProvider";
-import { SiZcool } from "react-icons/si";
 import { IoIosSearch, IoIosNotifications, IoIosArrowDown } from "react-icons/io";
 import Notification from "./Notification";
 import UserProfile from "./UserProfile";
@@ -30,7 +29,7 @@ const NavButton: React.FC<NavButtonProps> = ({ title, customFunc, icon, color })
 };
 
 const Navbar: React.FC = () => {
-    const { isClicked, setIsClicked, handleClick } = useStateContext();
+    const { isClicked, handleClick } = useStateContext();
 
     return (
         <div className="flex justify-between p-2 relative mt-3">
@@ -64,9 +63,11 @@ const Navbar: React.FC = () => {
                     </p>
                     <IoIosArrowDown style={{color: "#5C1419"}}/>
                 </div>
-                {isClicked && <Notification/>}
-                {isClicked && <UserProfile/>}
-                {isClicked && <Search/>}
+
+                {/* Render the components based on the icon clicked */}
+                {isClicked.notification && <Notification/>}
+                {isClicked.userProfile && <UserProfile/>}
+                {isClicked.search && <Search/>}
             </div>
         </div>
     );

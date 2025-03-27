@@ -34,12 +34,13 @@ const Sidebar: React.FC = () => {
 
     const SIDEBAR_LINKS: SidebarLink[] = [
         { id: 1, path: "/", name: "Dashboard", icon: TbDeviceAnalytics },
-        { id: 2, path: "/punchInOut", name: "Punch In-Out", icon: FaBusinessTime },
-        { id: 3, path: "/equipmentInspection", name: "Equipment Inspection", icon: CiDumbbell },
-        { id: 4, path: "/firstAid", name: "First-Aid Kit", icon: GiFirstAidKit },
-        { id: 5, path: "/closingChecklist", name: "Closing Checklist", icon: GiVacuumCleaner },
-        { id: 6, path: "/trafficCount", name: "Traffic Count", icon: FaArrowsDownToPeople },
-      ];
+        { id: 2, path: "/punch-in-out", name: "Punch In-Out", icon: FaBusinessTime },
+        { id: 3, path: "/equipment-inspection", name: "Equipment Inspection", icon: CiDumbbell },
+        { id: 4, path: "/first-aid-kit", name: "First-Aid Kit", icon: GiFirstAidKit },
+        { id: 5, path: "/closing-checklist", name: "Closing Checklist", icon: GiVacuumCleaner },
+        { id: 6, path: "/traffic-count", name: "Traffic Count", icon: FaArrowsDownToPeople },
+    ];
+    
       
     return (
         <div className="ml-3 h-screen md:overflow-hidden overflow-auto md:hover:overflow-auto pb-10 shadow-2xl">
@@ -62,7 +63,7 @@ const Sidebar: React.FC = () => {
                     {/* Sidebar Links */}
                     <div className="mt-10">
                         {SIDEBAR_LINKS.map((link) => (
-                            <NavLink to={`/${link.name}`}
+                            <NavLink to={link.path}
                                      key={link.id}
                                      className={({isActive}) => (isActive ? activeLink : normalLink)}>
                                 <link.icon />
