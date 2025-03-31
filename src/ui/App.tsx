@@ -18,12 +18,12 @@ export default function App() {
     <HashRouter>
       <div className="flex h-screen">
         {/* Sidebar */}
-        <div className={`fixed ${activeMenu ? "w-72" : "w-20"} h-screen transition-all`}>
+        <div className={`fixed ${activeMenu ? "w-65" : "w-20"} h-screen transition-all`}>
           <Sidebar />
         </div>
 
         {/* Main Content Area */}
-        <div className={`flex-1 min-h-screen transition-all ${activeMenu ? "ml-72" : "ml-20"}`}>
+        <div className={`flex-1 min-h-screen transition-all ${activeMenu ? "ml-65" : "ml-20"}`}>
           {/* Navbar */}
           <div className="w-full">
             <Navbar />
