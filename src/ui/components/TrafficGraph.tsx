@@ -2,59 +2,51 @@ import React from "react";
 import { FiUser } from "react-icons/fi";
 
 import {
-    LineChart,
-    Line,
     XAxis,
     YAxis,
-    CartesianGrid,
     Tooltip,
-    Legend,
-    ReferenceLine,
     ResponsiveContainer,
-  } from 'recharts';
+    CartesianGrid,
+    Legend,
+    Line,
+    LineChart,
+} from 'recharts';
 
 const data = [
     {
       name: 'Sunday',
       expected: 72,
       actual: 66,
-      amt: 2400,
     },
     {
       name: 'Monday',
       expected: 182,
       actual: 157,
-      amt: 2210,
     },
     {
       name: 'Tuesday',
       expected: 124,
       actual: 134,
-      amt: 2290,
     },
     {
       name: 'Wednesday',
       expected: 101,
       actual: 123,
-      amt: 2000,
     },
     {
       name: 'Thursday',
       expected: 98,
       actual: 88,
-      amt: 2181,
     },
     {
       name: 'Friday',
       expected: 87,
       actual: 92,
-      amt: 2500,
     },
     {
       name: 'Saturday',
       expected: 65,
       actual: 84,
-      amt: 2100,
     },
 ];
 
@@ -73,14 +65,28 @@ const TrafficGraph: React.FC = () => {
             {/* Graph */}
             <div className="h-64 px-4">
                 <ResponsiveContainer width="100%" height="100%">
-                <LineChart width={500} height={300} data={data}>
+                <LineChart width={500} 
+                           height={400} 
+                           data={data} 
+                           margin={{
+                            top: 0,
+                            right: 0,
+                            left: -24,
+                            bottom: 0,}}>
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" padding={{ left: 30, right: 30 }} />
-                    <YAxis scale="linear" />
-                    <Tooltip />
+                    <XAxis dataKey="name"
+                           className="text-xs font-bold"
+                           padding={{ right: 4 }}  />
+                    <YAxis className="text-xs font-bold" />
+                    <Tooltip wrapperClassName="text-sm rounded"
+                             labelClassName="text-xs text-stone-500"/>
                     <Legend />
-                    <Line type="monotone" dataKey="actual" stroke="#8884d8" activeDot={{ r: 8 }} />
-                    <Line type="monotone" dataKey="expected" stroke="#82ca9d" />
+                    <Line type="monotone" 
+                          dataKey="actual" 
+                          stroke="#5C1419" />
+                    <Line type="monotone" 
+                          dataKey="expected" 
+                          stroke="#82ca9d" />
                 </LineChart>
                 </ResponsiveContainer>
             </div>
