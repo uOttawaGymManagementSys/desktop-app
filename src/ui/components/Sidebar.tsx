@@ -49,7 +49,7 @@ const Sidebar: React.FC = () => {
                 <>
                     <div className="flex justify-between items-center mt-4 px-2">
                         {/* Logo */}
-                        <Link to="/" onClick={() => setActiveMenu(false)} className="items-center mx-auto ml-20">
+                        <Link to="/" onClick={() => setActiveMenu(false)} className="items-center mx-auto ml-16">
                             <span><img src={logo} alt="REC Full Logo" width="100" height="100" /></span>
                         </Link>
 
