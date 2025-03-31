@@ -55,7 +55,7 @@ const data = [
 const TrafficGraph: React.FC = () => {
     return (
         //to do: setup backend logic 
-        <div className="col-span-8 overflow-hidden rounded border border-stone-300">
+        <div className="col-span-12 overflow-hidden rounded border border-stone-300">
             <div className="p-4">
                 <h3 className="flex items-center gap-1.5 font-medium">
                     <FiUser/> Weekly Traffic
