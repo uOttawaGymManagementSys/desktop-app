@@ -25,6 +25,7 @@ https://github.com/user-attachments/assets/0d0315ce-83e2-45f2-904b-0fe7ec396a0b
 * A schedule Feature that includes
   * ability to put shifts away to be covered
   * ability to pick up shifts for coverage
+* A feature to predict Future traffic based on past data
 * Role based login
 * Sending a Reminder 10 minutes before a shift starts to the respective FA
 * Send a reminder to submit traffic every 30 minutes
