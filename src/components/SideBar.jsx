@@ -24,7 +24,7 @@ const SideBar = ({children}) => {
                     </button>
                 </div>
                 <SidebarContext.Provider value={{expanded, setExpanded}}>
-                    <ul className="flex-1 px-3">{children}</ul>
+                    <ul className="pt-12 flex-1 px-3">{children}</ul>
                 </SidebarContext.Provider>
                 <div className="border-t border-gray-200 flex p-3">
                     <img 
