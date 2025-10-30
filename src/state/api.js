@@ -16,7 +16,7 @@ export const api = createApi({
       providesTags: ["Traffic"],
     }),
     getMachines: build.query({
-      query: () => "/machines",
+      query: () => "/machinestatus",
       providesTags: ["Machines"],
     }),
 
