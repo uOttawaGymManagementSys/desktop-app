@@ -21,9 +21,9 @@ export const api = createApi({
     }),
 
     getMachinesByGym: build.query({
-      query: (gymId) => `/machines/gym/${gymId}`,
+      query: (gymId) => `/machinestatus/gym/${gymId}`,
       providesTags: ["Machines"],
-    })
+    }),
   }),
 });
 
@@ -31,5 +31,5 @@ export const {
   useGetTrafficQuery,
   useGetTrafficByGymQuery,
   useGetMachinesQuery,
-  useGetMachinesByGymQuery
+  useGetMachinesByGymQuery,
 } = api;

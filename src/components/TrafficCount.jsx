@@ -54,7 +54,7 @@ const TrafficCount = ({ selectedGym }) => {
     <Box m="1.5rem 2.5rem">
       <Header
         title="TRAFFIC COUNT"
-        subtitle="Traffic count of both gyms HLC and MNT"
+        subtitle={`Traffic count of ${selectedGym === 4 ? "HLC" : selectedGym === 3 ? "MNT" : ""} gym`}
       />
 
       <Box

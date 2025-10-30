@@ -8,7 +8,7 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { useGetMachinesQuery } from "../state/api";
+import { useGetMachinesByGymQuery } from "../state/api";
 import Header from "./Header";
 
 const Machine = ({ gym_id, id, name, number, status, status_changed_at }) => {
@@ -77,14 +77,17 @@ const Machine = ({ gym_id, id, name, number, status, status_changed_at }) => {
   );
 };
 
-const EquipmentStatus = () => {
-  const { data, isLoading } = useGetMachinesQuery();
+const EquipmentStatus = ({ selectedGym }) => {
+  const { data, isLoading } = useGetMachinesByGymQuery(selectedGym);
   const isNonMobile = useMediaQuery("(min-width:1000px");
   console.log(data);
 
   return (
     <Box m="1.5rem 2.5rem">
-      <Header title={"Machines"} subtitle={"MNT and HLC gym equipment list"} />
+      <Header
+        title={"Machines"}
+        subtitle={`${selectedGym === 4 ? "HLC" : selectedGym === 3 ? "MNT" : ""} gym equipment list`}
+      />
       {data && !isLoading ? (
         <Box
           mt="20px"

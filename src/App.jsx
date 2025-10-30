@@ -31,7 +31,7 @@ function App() {
       case "Traffic count":
         return <TrafficCount selectedGym={selectedGym} />;
       case "Equipment status":
-        return <EquipmentStatus />;
+        return <EquipmentStatus selectedGym={selectedGym} />;
       case "Settings":
         return <SettingsPage />;
       case "Help":
