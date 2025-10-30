@@ -1,10 +1,10 @@
 import { Box } from "@mui/material";
-import { useGetTrafficQuery } from "../state/api";
+import { useGetTrafficByGymQuery } from "../state/api";
 import Header from "./Header";
-import { DataGrid, renderActionsCell } from "@mui/x-data-grid";
+import { DataGrid } from "@mui/x-data-grid";
 
-const TrafficCount = () => {
-  const { data, isLoading } = useGetTrafficQuery();
+const TrafficCount = ({ selectedGym }) => {
+  const { data, isLoading } = useGetTrafficByGymQuery(selectedGym);
   console.log(data);
 
   const columns = [
@@ -80,7 +80,6 @@ const TrafficCount = () => {
               width: "100%",
             },
           },
-          // ✅ specifically target the "Recorded At" column header
           "& .MuiDataGrid-columnHeader--recorded_at": {
             justifyContent: "center !important",
           },
