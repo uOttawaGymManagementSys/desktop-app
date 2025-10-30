@@ -37,8 +37,8 @@ const SideBar = ({children}) => {
                             expanded? "w-52 ml-3" : "w-0"}
                         `}>
                         <div>
-                            <h4 className="font-semibold">Oussema Nijewi</h4>
-                            <span className="text-xs text-gray-600">onijew@uottawa.ca</span>
+                            <h4 className="font-semibold">Fitness Attendant</h4>
+                            <span className="text-xs text-gray-600">fitness@uottawa.ca</span>
                         </div>
                         <MoreVertical size={20}/>
                     </div>

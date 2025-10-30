@@ -12,7 +12,7 @@ function App (){
   //manage which item is active
   const [activeItem, setActiveItem] = useState("Dashboard");
 
-  // conditional rendering for each item
+  // conditional rendering for each nav-item
   const renderContent = () => {
     switch (activeItem) {
       case "Dashboard": 
@@ -30,7 +30,7 @@ function App (){
     }
   }
   return (
-    <div className='App'>
+    <div className='App flex h-screen'>
       <SideBar>
         <SidebarItem
           icon={<LayoutDashboard size={20}/>}
@@ -72,7 +72,7 @@ function App (){
           onClick={() => setActiveItem("Help")}
           />
       </SideBar>
-      <main>
+      <main className="flex-1 p-6 overflow-y-auto">
         {renderContent()}
       </main>
     </div>
