@@ -24,6 +24,14 @@ export const api = createApi({
       query: (gymId) => `/machinestatus/gym/${gymId}`,
       providesTags: ["Machines"],
     }),
+    updateMachineStatus: build.mutation({
+      query: ({ id, status }) => ({
+        url: "/machinestatus/update",
+        method: "POST",
+        body: { id, status },
+      }),
+      invalidatesTags: ["Machines"],
+    }),
   }),
 });
 
@@ -32,4 +40,5 @@ export const {
   useGetTrafficByGymQuery,
   useGetMachinesQuery,
   useGetMachinesByGymQuery,
+  useUpdateMachineStatusMutation,
 } = api;

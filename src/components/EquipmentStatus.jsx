@@ -8,53 +8,53 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { useGetMachinesByGymQuery } from "../state/api";
+import {
+  useGetMachinesByGymQuery,
+  useUpdateMachineStatusMutation,
+} from "../state/api";
 import Header from "./Header";
 
 const Machine = ({ gym_id, id, name, number, status, status_changed_at }) => {
-  const [isBroken, setIsBroken] = useState(false);
+  const [updateMachineStatus, { isLoading }] = useUpdateMachineStatusMutation();
+
+  const handleToggleStatus = async () => {
+    const newStatus = !status; // database uses true = works fine
+    try {
+      await updateMachineStatus({ id, status: newStatus }).unwrap();
+    } catch (error) {
+      console.error("Failed to update machine status:", error);
+      alert("Failed to update machine status. Please try again.");
+    }
+  };
+
   return (
     <Card
       sx={{
-        backgroundColor: "#CCCCCC", // Light gray (Tailwind's gray-50)
+        backgroundColor: "#CCCCCC",
         borderRadius: "0.75rem",
-        padding: "1.25rem",
-        boxShadow: "0px 4px 16px rgba(0,0,0,0.15)", // 3D shadow
+        p: "1.25rem",
+        boxShadow: "0px 4px 16px rgba(0,0,0,0.15)",
         transition: "all 0.2s ease-in-out",
-
         "&:hover": {
-          boxShadow: "0px 8px 24px rgba(0,0,0,0.25)", // pop on hover
-          transform: "translateY(-4px)", // lift card
+          boxShadow: "0px 8px 24px rgba(0,0,0,0.25)",
+          transform: "translateY(-4px)",
         },
-        display: "flex",
-        flexDirection: "column",
-        gap: "0.75rem",
-        color: "#111827", // Very dark gray text
       }}
     >
-      <CardContent sx={{ paddingBottom: "0 !important" }}>
-        {/* MACHINE NAME */}
-        <Typography variant="h6" sx={{ fontWeight: "600", color: "#111827" }}>
+      <CardContent sx={{ pb: "0 !important" }}>
+        <Typography variant="h6" sx={{ fontWeight: "600" }}>
           {name}
         </Typography>
-
-        {/* MACHINE NUMBER */}
-        <Typography sx={{ fontSize: 14, color: "#374151" }}>
-          Machine #{number}
-        </Typography>
-
-        {/* LAST UPDATED */}
+        <Typography sx={{ fontSize: 14 }}>Machine #{number}</Typography>
         <Typography sx={{ fontSize: 13, color: "#6B7280" }}>
           Last updated: {new Date(status_changed_at).toLocaleString()}
         </Typography>
-
-        {/* GYM */}
         <Typography sx={{ fontSize: 13, color: "#6B7280" }}>
           Gym: {gym_id === 4 ? "HLC" : "MNT"}
         </Typography>
       </CardContent>
 
-      <CardActions sx={{ padding: 0, paddingTop: "0.5rem" }}>
+      <CardActions sx={{ pt: "0.5rem" }}>
         <Button
           fullWidth
           variant="contained"
@@ -62,15 +62,16 @@ const Machine = ({ gym_id, id, name, number, status, status_changed_at }) => {
             textTransform: "none",
             fontWeight: 600,
             borderRadius: "0.5rem",
-            padding: "0.5rem",
-            backgroundColor: isBroken ? "#DC2626" : "#16A34A",
+            py: "0.5rem",
+            backgroundColor: !status ? "#DC2626" : "#16A34A",
             "&:hover": {
-              backgroundColor: isBroken ? "#B91C1C" : "#15803D",
+              backgroundColor: !status ? "#B91C1C" : "#15803D",
             },
           }}
-          onClick={() => setIsBroken(!isBroken)}
+          onClick={handleToggleStatus}
+          disabled={isLoading}
         >
-          {isBroken ? "Not Available" : "Available"}
+          {isLoading ? "Updating..." : !status ? "Not Available" : "Available"}
         </Button>
       </CardActions>
     </Card>

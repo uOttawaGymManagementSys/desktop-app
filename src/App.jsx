@@ -50,7 +50,7 @@ function App() {
 
   return (
     <div className="App flex h-screen">
-      <SideBar>
+      <SideBar onSwitchGym={() => setSelectedGym(null)}>
         <SidebarItem
           icon={<LayoutDashboard size={20} />}
           text="Dashboard"
