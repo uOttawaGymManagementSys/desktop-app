@@ -1,11 +1,36 @@
-import { Box } from "@mui/material";
+import { Box, TextField, Button } from "@mui/material";
 import { useGetTrafficByGymQuery } from "../state/api";
 import Header from "./Header";
 import { DataGrid } from "@mui/x-data-grid";
+import { useState } from "react";
 
 const TrafficCount = ({ selectedGym }) => {
   const { data, isLoading } = useGetTrafficByGymQuery(selectedGym);
   console.log(data);
+
+  const [trafficValue, setTrafficValue] = useState("");
+
+  const handleSubmit = () => {
+    if (trafficValue.trim() === "") {
+      alert("please enter a number first.");
+      return;
+    }
+
+    const num = Number(trafficValue);
+
+    if (num < 0) {
+      alert("traffic cannot be negative");
+      return;
+    }
+
+    if (isNaN(trafficValue)) {
+      alert("only numeric values are allowed.");
+      return;
+    }
+
+    console.log(`Submitted traffic count: ${num}`);
+    setTrafficValue(""); //clear input after submit
+  };
 
   const columns = [
     {
@@ -56,6 +81,38 @@ const TrafficCount = ({ selectedGym }) => {
         title="TRAFFIC COUNT"
         subtitle={`Traffic count of ${selectedGym === 4 ? "HLC" : selectedGym === 3 ? "MNT" : ""} gym`}
       />
+
+      <Box
+        display="flex"
+        alignItems="center"
+        gap="1rem"
+        mt="1.5rem"
+        mb="1.5rem"
+      >
+        <TextField
+          type="number"
+          label="Enter traffic count"
+          variant="outlined"
+          size="small"
+          value={trafficValue}
+          onChange={(e) => setTrafficValue(e.target.value)}
+          sx={{ width: "200px" }}
+        />
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleSubmit}
+          sx={{
+            textTransform: "none",
+            fontWeight: 600,
+            borderRadius: "0.5rem",
+            px: "1.5rem",
+            py: "0.6rem",
+          }}
+        >
+          Submit
+        </Button>
+      </Box>
 
       <Box
         mt="40px"
