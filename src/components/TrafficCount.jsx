@@ -1,6 +1,6 @@
 import { Box, TextField, Button } from "@mui/material";
 import {
-  useGetTrafficByGymQuery,
+  useGetTodayTrafficByGymQuery,
   useAddTrafficCountMutation,
 } from "../state/api";
 import Header from "./Header";
@@ -8,7 +8,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useState } from "react";
 
 const TrafficCount = ({ selectedGym }) => {
-  const { data, isLoading } = useGetTrafficByGymQuery(selectedGym);
+  const { data, isLoading } = useGetTodayTrafficByGymQuery(selectedGym);
   const [trafficValue, setTrafficValue] = useState("");
 
   // mutation hook for adding traffic entry

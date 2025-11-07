@@ -7,6 +7,7 @@ export const api = createApi({
   }),
   tagTypes: ["Traffic", "Machines"],
   endpoints: (build) => ({
+    //traffic endpoints
     getTraffic: build.query({
       query: () => "/traffic",
       providesTags: ["Traffic"],
@@ -15,6 +16,11 @@ export const api = createApi({
       query: (gymId) => `/traffic/gym/${gymId}`,
       providesTags: ["Traffic"],
     }),
+    getTodayTrafficByGym: build.query({
+      query: (gymId) => `/traffic/gym/${gymId}/today`,
+      providesTags: ["Traffic"],
+    }),
+    //machine status endpoints
     getMachines: build.query({
       query: () => "/machinestatus",
       providesTags: ["Machines"],
@@ -51,4 +57,5 @@ export const {
   useGetMachinesByGymQuery,
   useUpdateMachineStatusMutation,
   useAddTrafficCountMutation,
+  useGetTodayTrafficByGymQuery,
 } = api;
