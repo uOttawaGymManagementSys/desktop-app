@@ -32,6 +32,15 @@ export const api = createApi({
       }),
       invalidatesTags: ["Machines"],
     }),
+
+    addTrafficCount: build.mutation({
+      query: ({ gym_id, traffic_count }) => ({
+        url: "/traffic/add",
+        method: "POST",
+        body: { gym_id, traffic_count },
+      }),
+      invalidatesTags: ["Traffic"],
+    }),
   }),
 });
 
@@ -41,4 +50,5 @@ export const {
   useGetMachinesQuery,
   useGetMachinesByGymQuery,
   useUpdateMachineStatusMutation,
+  useAddTrafficCountMutation,
 } = api;

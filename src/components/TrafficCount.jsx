@@ -1,35 +1,50 @@
 import { Box, TextField, Button } from "@mui/material";
-import { useGetTrafficByGymQuery } from "../state/api";
+import {
+  useGetTrafficByGymQuery,
+  useAddTrafficCountMutation,
+} from "../state/api";
 import Header from "./Header";
 import { DataGrid } from "@mui/x-data-grid";
 import { useState } from "react";
 
 const TrafficCount = ({ selectedGym }) => {
   const { data, isLoading } = useGetTrafficByGymQuery(selectedGym);
-  console.log(data);
-
   const [trafficValue, setTrafficValue] = useState("");
 
-  const handleSubmit = () => {
+  // mutation hook for adding traffic entry
+  const [addTrafficEntry, { isLoading: isAdding }] =
+    useAddTrafficCountMutation();
+
+  const handleSubmit = async () => {
     if (trafficValue.trim() === "") {
-      alert("please enter a number first.");
+      alert("Please enter a number first.");
       return;
     }
 
     const num = Number(trafficValue);
 
+    if (isNaN(num)) {
+      alert("Only numeric values are allowed.");
+      return;
+    }
+
     if (num < 0) {
-      alert("traffic cannot be negative");
+      alert("Traffic count cannot be negative.");
       return;
     }
 
-    if (isNaN(trafficValue)) {
-      alert("only numeric values are allowed.");
-      return;
-    }
+    try {
+      await addTrafficEntry({
+        gym_id: selectedGym,
+        traffic_count: num,
+      }).unwrap();
 
-    console.log(`Submitted traffic count: ${num}`);
-    setTrafficValue(""); //clear input after submit
+      console.log("Traffic count logged successfully!");
+      setTrafficValue(""); // clear after submit
+    } catch (error) {
+      console.error("Failed to log traffic count:", error);
+      alert("Failed to log traffic count. Please try again.");
+    }
   };
 
   const columns = [
@@ -46,13 +61,12 @@ const TrafficCount = ({ selectedGym }) => {
       flex: 0.5,
       headerAlign: "center",
       align: "center",
-      renderCell: (params) => {
-        return params.value === 4
+      renderCell: (params) =>
+        params.value === 4
           ? "HLC"
           : params.value === 3
             ? "MNT"
-            : String(params.value);
-      },
+            : String(params.value),
     },
     {
       field: "recorded_at",
@@ -79,9 +93,12 @@ const TrafficCount = ({ selectedGym }) => {
     <Box m="1.5rem 2.5rem">
       <Header
         title="TRAFFIC COUNT"
-        subtitle={`Traffic count of ${selectedGym === 4 ? "HLC" : selectedGym === 3 ? "MNT" : ""} gym`}
+        subtitle={`Traffic count of ${
+          selectedGym === 4 ? "HLC" : selectedGym === 3 ? "MNT" : ""
+        } gym`}
       />
 
+      {/* Input + Submit */}
       <Box
         display="flex"
         alignItems="center"
@@ -95,13 +112,20 @@ const TrafficCount = ({ selectedGym }) => {
           variant="outlined"
           size="small"
           value={trafficValue}
-          onChange={(e) => setTrafficValue(e.target.value)}
+          onChange={(e) => {
+            const val = e.target.value;
+            if (val === "" || /^[0-9]+$/.test(val)) {
+              setTrafficValue(val);
+            }
+          }}
+          inputProps={{ inputMode: "numeric", pattern: "[0-9]*", min: 0 }}
           sx={{ width: "200px" }}
         />
         <Button
           variant="contained"
           color="primary"
           onClick={handleSubmit}
+          disabled={isAdding}
           sx={{
             textTransform: "none",
             fontWeight: 600,
@@ -110,10 +134,11 @@ const TrafficCount = ({ selectedGym }) => {
             py: "0.6rem",
           }}
         >
-          Submit
+          {isAdding ? "Submitting..." : "Submit"}
         </Button>
       </Box>
 
+      {/* Data Table */}
       <Box
         mt="40px"
         height="75vh"
@@ -123,22 +148,10 @@ const TrafficCount = ({ selectedGym }) => {
             justifyContent: "center",
             alignItems: "center",
           },
-          "& .MuiDataGrid-columnHeaders": {
-            "& .MuiDataGrid-columnHeader": {
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            },
-            "& .MuiDataGrid-columnHeaderTitleContainer": {
-              justifyContent: "center !important",
-            },
-            "& .MuiDataGrid-columnHeaderTitle": {
-              textAlign: "center",
-              width: "100%",
-            },
-          },
-          "& .MuiDataGrid-columnHeader--recorded_at": {
-            justifyContent: "center !important",
+          "& .MuiDataGrid-columnHeaderTitle": {
+            fontWeight: "bold",
+            textAlign: "center",
+            width: "100%",
           },
         }}
       >
@@ -147,16 +160,6 @@ const TrafficCount = ({ selectedGym }) => {
           getRowId={(row) => row.id}
           rows={data || []}
           columns={columns}
-          sx={{
-            "& .MuiDataGrid-columnHeaderTitle": {
-              fontWeight: "bold",
-            },
-            "& .MuiDataGrid-cell": {
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            },
-          }}
         />
       </Box>
     </Box>
