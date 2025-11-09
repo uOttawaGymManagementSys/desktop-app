@@ -90,7 +90,7 @@ const TrafficCount = ({ selectedGym }) => {
   ];
 
   return (
-    <Box m="2rem 2.5rem">
+    <Box m="0rem 2.5rem">
       <Header
         title="TRAFFIC COUNT"
         subtitle={`Traffic count of ${
@@ -99,13 +99,7 @@ const TrafficCount = ({ selectedGym }) => {
       />
 
       {/* Input + Submit */}
-      <Box
-        display="flex"
-        alignItems="center"
-        gap="1rem"
-        mt="1.5rem"
-        mb="1.5rem"
-      >
+      <Box display="flex" alignItems="center" gap="1rem" mt="1rem" mb="1.5rem">
         <TextField
           type="number"
           label="Enter traffic count"

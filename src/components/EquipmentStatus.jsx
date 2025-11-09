@@ -84,7 +84,7 @@ const EquipmentStatus = ({ selectedGym }) => {
   console.log(data);
 
   return (
-    <Box m="1.5rem 2.5rem">
+    <Box m="0rem 2.5rem">
       <Header
         title={"Machines"}
         subtitle={`${selectedGym === 4 ? "HLC" : selectedGym === 3 ? "MNT" : ""} gym equipment list`}
