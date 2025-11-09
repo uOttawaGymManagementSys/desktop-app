@@ -90,7 +90,7 @@ const TrafficCount = ({ selectedGym }) => {
   ];
 
   return (
-    <Box m="1.5rem 2.5rem">
+    <Box m="2rem 2.5rem">
       <Header
         title="TRAFFIC COUNT"
         subtitle={`Traffic count of ${
