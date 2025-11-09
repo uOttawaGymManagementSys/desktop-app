@@ -4,7 +4,7 @@ import started from "electron-squirrel-startup";
 
 // Notification reminder to input traffic
 const NOTIFICATION_TITLE = "Traffic Count Reminder";
-const NOTIFICATION_BODY = "don't forget to input traffic, silly ! 🤪";
+const NOTIFICATION_BODY = "don't forget to input traffic !";
 
 function showReminder() {
   new Notification({
