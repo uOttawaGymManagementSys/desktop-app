@@ -1,6 +1,6 @@
 {
   "name": "desktop-app",
-  "productName": "desktop-app",
+  "productName": "Gym Insights",
   "version": "1.0.0",
   "description": "My Electron application description",
   "main": ".vite/build/main.js",
@@ -52,6 +52,7 @@
     "react-datepicker": "^8.8.0",
     "react-dom": "^19.2.0",
     "react-redux": "^9.2.0",
-    "react-router-dom": "^7.9.4"
+    "react-router-dom": "^7.9.4",
+    "recharts": "^3.5.1"
   }
 }

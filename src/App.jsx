@@ -27,7 +27,7 @@ function App() {
   const renderContent = () => {
     switch (activeItem) {
       case "Dashboard":
-        return <Dashboard />;
+        return <Dashboard selectedGym={selectedGym} />;
       case "Traffic count":
         return <TrafficCount selectedGym={selectedGym} />;
       case "Equipment status":

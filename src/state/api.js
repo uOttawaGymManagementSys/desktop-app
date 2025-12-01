@@ -6,6 +6,8 @@ export const api = createApi({
     baseUrl: import.meta.env.VITE_API_BASE_URL,
   }),
   tagTypes: ["Traffic", "Machines"],
+  keepUnusedDataFor: 900, // keep cache for 15 minutes
+  refetchOnFocus: false, // don't refetch when window regains focus
   endpoints: (build) => ({
     //traffic endpoints
     getTraffic: build.query({
@@ -18,6 +20,11 @@ export const api = createApi({
     }),
     getTodayTrafficByGym: build.query({
       query: (gymId) => `/traffic/gym/${gymId}/today`,
+      providesTags: ["Traffic"],
+    }),
+    getTrafficStatsByGym: build.query({
+      query: ({ gymId, range, agg }) =>
+        `/traffic/gym/${gymId}/stats?range=${range}&agg=${agg}`,
       providesTags: ["Traffic"],
     }),
     //machine status endpoints
@@ -58,4 +65,5 @@ export const {
   useUpdateMachineStatusMutation,
   useAddTrafficCountMutation,
   useGetTodayTrafficByGymQuery,
+  useGetTrafficStatsByGymQuery,
 } = api;

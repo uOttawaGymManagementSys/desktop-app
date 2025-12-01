@@ -10,6 +10,7 @@ import { useState } from "react";
 const TrafficCount = ({ selectedGym }) => {
   const { data, isLoading } = useGetTodayTrafficByGymQuery(selectedGym);
   const [trafficValue, setTrafficValue] = useState("");
+  console.log(data);
 
   // mutation hook for adding traffic entry
   const [addTrafficEntry, { isLoading: isAdding }] =
