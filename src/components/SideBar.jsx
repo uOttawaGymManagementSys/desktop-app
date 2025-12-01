@@ -1,5 +1,7 @@
 import { ChevronLeft, ChevronRight, MoreVertical } from "lucide-react";
 import { createContext, useState } from "react";
+import logo from "../assets/logo.png";
+import userIcon from "../assets/user.png";
 
 export const SidebarContext = createContext();
 
@@ -18,7 +20,7 @@ const SideBar = ({ children, onSwitchGym }) => {
                                  ${expanded ? "justify-between" : "justify-center"}`}
         >
           <img
-            src="src/assets/logo.png"
+            src={logo}
             className={`overflow-hidden transition-all ${
               expanded ? "w-14" : "w-0"
             }`}
@@ -47,7 +49,7 @@ const SideBar = ({ children, onSwitchGym }) => {
 
         <div className="border-t border-gray-200 flex p-3">
           <img
-            src="src/assets/user.png"
+            src={userIcon}
             className="w-12 h-12 rounded-md"
             alt="USER ICON"
           />
