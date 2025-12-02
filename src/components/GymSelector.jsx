@@ -1,7 +1,9 @@
 const GymSelector = ({ onSelectGym }) => {
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-50">
-      <h1 className="text-3xl font-bold mb-8 text-gray-800">Select a Gym</h1>
+      <h1 className="text-3xl font-bold mb-8 text-gray-800">
+        Select a Fitness Center
+      </h1>
 
       <div className="flex gap-8">
         <button
