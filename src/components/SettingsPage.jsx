@@ -1,4 +1,5 @@
 import { Box, Typography, Switch } from "@mui/material";
+import Header from "./Header";
 
 const SettingsPage = ({ mode, setMode }) => {
   const handleToggle = () => {
@@ -7,9 +8,7 @@ const SettingsPage = ({ mode, setMode }) => {
 
   return (
     <Box>
-      <Typography variant="h4" fontWeight={600} mb="1.5rem">
-        Settings
-      </Typography>
+      <Header title="Settings" subtitle="   " />
 
       <Box
         display="flex"
